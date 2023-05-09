@@ -1,8 +1,8 @@
-# oracle-php7
+# oracle-php8.2
 
 ### Como usar
 
 ```
 docker build -t esalvador-php-oracle .
-aclll/esalvador-php-oracle:php-7.2.34-oracle12-node14
+aclll/esalvador-php-oracle:php-8.2-oracle12-node18
 ```
