@@ -1,4 +1,4 @@
-FROM php:7.2.34-fpm-buster
+FROM php:8.2-fpm
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=UTC
@@ -8,7 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /tmp
 
 RUN apt-get update
-RUN apt-get update && apt-get install -y \ 
+RUN apt-get update && apt-get install -y --fix-missing \
     git \
     wget \
     alien \
@@ -44,7 +44,7 @@ RUN apt-get update && apt-get install -y \
     && apt-key adv --homedir ~/.gnupg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C300EE8C \
     && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" > /etc/apt/sources.list.d/ppa_ondrej_php.list \
     && apt-get update \
-    && curl -sL https://deb.nodesource.com/setup_15.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
@@ -68,7 +68,7 @@ RUN ls -al /usr/include/oracle/12.1/client*/*
 RUN ls -al $ORACLE_HOME/lib
 RUN ln -s /usr/include/oracle/12.1/client64 $ORACLE_HOME/include
 
-RUN docker-php-ext-install -j$(nproc) oci8 \
+RUN docker-php-ext-install -j$(nproc)  oci8 \
                                         pdo \
                                         pdo_oci \
                                         pcntl \
